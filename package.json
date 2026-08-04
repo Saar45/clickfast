@@ -1,0 +1,9 @@
+{
+  "name": "clickfast",
+  "version": "1.0.0",
+  "description": "Jeu de clics statique (HTML/CSS/JS) servi par nginx, testé et buildé par GitHub Actions",
+  "scripts": {
+    "test": "node --test tests/"
+  },
+  "license": "MIT"
+}
