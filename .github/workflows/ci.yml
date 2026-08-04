@@ -1,0 +1,34 @@
+name: CI
+
+# Chaque push déclenche la pipeline, sur toutes les branches :
+# une branche de feature lance les tests, exactement comme main.
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Le runner est vide : sans checkout, il n'a même pas notre code.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # Zéro dépendance : pas de npm ci, les tests tournent directement.
+      - run: npm test
+
+  build:
+    # Le build n'existe que si les tests sont verts : fail fast.
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build de l'image
+        run: docker build -t clickfast:${{ github.sha }} .
+      - name: Smoke test de l'image
+        run: |
+          docker run -d --rm --name smoke -p 8080:80 clickfast:${{ github.sha }}
+          sleep 2
+          curl -sf http://localhost:8080/ | grep -q "ClickFast"
+          curl -sf -o /dev/null http://localhost:8080/game.js
+          docker stop smoke
