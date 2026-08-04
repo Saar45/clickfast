@@ -66,3 +66,10 @@ pas`, 9 pass / 1 fail). Poussé sur la branche, le résultat côté GitHub Actio
 l'image cassée n'a jamais existé. C'est exactement le contrat « fail fast » : la
 pipeline ne protège pas en réparant, elle protège en refusant d'aller plus loin.
 Branche supprimée après la démo, `main` n'a jamais vu le bug.
+
+**Branche protégée** : `main` exige désormais que les checks `test` et `build` soient
+verts avant tout merge (mode strict : la branche doit aussi être à jour avec `main`).
+Une pull request avec un test rouge affiche un bouton de merge bloqué — c'est le
+pilier Culture du cours rendu concret par la pipeline : personne ne peut « pousser
+quand même », les tests verts ne sont plus une bonne pratique mais une règle du dépôt.
+Les force-push et la suppression de la branche sont refusés aussi.
