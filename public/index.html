@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClickFast</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>⚡ ClickFast</h1>
+    <p class="subtitle">Clique le plus vite possible en 10 secondes</p>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="label">Temps</span>
+        <span class="value"><span id="time">10.0</span> s</span>
+      </div>
+      <div class="stat">
+        <span class="label">Clics</span>
+        <span class="value" id="count">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Record</span>
+        <span class="value" id="best">—</span>
+      </div>
+    </div>
+
+    <button id="click-btn" disabled>CLIQUE !</button>
+    <button id="start-btn">Démarrer</button>
+
+    <p id="result" class="result"></p>
+  </main>
+
+  <script src="game.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
