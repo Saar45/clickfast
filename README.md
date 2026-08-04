@@ -57,3 +57,12 @@ jusqu'au commit exact. À noter : GitHub signale que `actions/checkout@v4` et
 `setup-node@v4` ciblent Node 20, déprécié sur les runners — la pipeline reste verte,
 mais c'est un exemple concret de l'entretien qu'une pipeline demande (passage en
 `@v5` à prévoir).
+
+**La preuve que la pipeline bloque** : sur une branche `demo/test-casse`, la garde
+`isRunning` a été volontairement retirée de `click()` — un clic après la fin du chrono
+était compté. En local, `npm test` attrape le bug (`✖ un clic après la fin ne compte
+pas`, 9 pass / 1 fail). Poussé sur la branche, le résultat côté GitHub Actions :
+`test : failure`, **`build : skipped`** — le job de build ne s'est jamais lancé,
+l'image cassée n'a jamais existé. C'est exactement le contrat « fail fast » : la
+pipeline ne protège pas en réparant, elle protège en refusant d'aller plus loin.
+Branche supprimée après la démo, `main` n'a jamais vu le bug.
